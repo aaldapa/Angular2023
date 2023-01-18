@@ -20,13 +20,17 @@ export class HeroServiceService {
    * @returns
    */
   getAllHeroes(): Observable<Hero[]> {
+    //Obtenemos los ids de base de datos
     let heroes: Hero[] = this.getAllHeroKeys().map((key: string) =>
       JSON.parse(localStorage.getItem(key)!)
     );
 
-    heroes.sort((heroA, heroB) => {
-      return heroA.id - heroB.id;
-    });
+    //ordenamos por id
+    if (heroes.length){
+      heroes.sort((heroA, heroB) => {
+        return heroA.id - heroB.id;
+      });
+    }
 
     return of(heroes);
   }

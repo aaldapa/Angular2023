@@ -9,7 +9,7 @@ import { HeroServiceService } from '../hero-service.service';
 })
 export class DashboardComponent implements OnInit {
   heroes!: Hero[];
-  constructor(private heroService: HeroServiceService) {}
+  constructor(private heroService: HeroServiceService) { }
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
@@ -17,9 +17,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getHeroes() {
-    this.heroService
-      .getAllHeroes()
-      .subscribe((heroes: Hero[]) => (this.heroes = heroes));
+    this.heroService.getAllHeroes()
+      .subscribe((heroes: Hero[]) => this.heroes = heroes);
 
     // this.heroes = [
     //   { id: 1, name: 'Batman', age: 24, power: 'riqueza' },
