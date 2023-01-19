@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { HeaderService } from '../header.service';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,14 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderComponent {
 
-  searchRequestParam: string = '';
-
   @Output()
-  searchParam = new EventEmitter<string>();
+  searchEvent = new EventEmitter<string>();
 
-  printSearchParam(): void {
-    console.log(this.searchRequestParam);
+  constructor(private headerService: HeaderService) { }
+
+  search(searchValue: string): void {
+    console.log(`SOLICITUD DE BÚSQUEDA --> seachValue: ${searchValue}`);
+    this.headerService.search(searchValue);
   }
 
 }

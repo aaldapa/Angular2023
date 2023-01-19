@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../header.service';
 import { HeroServiceService } from '../hero-service.service';
 import { Hero } from './../model/hero';
 
@@ -9,11 +10,12 @@ import { Hero } from './../model/hero';
 })
 export class HeroesComponent implements OnInit {
   heroes!: Hero[];
-  constructor(private heroService: HeroServiceService) {}
+  constructor(private heroService: HeroServiceService, private headerService: HeaderService) {}
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
     this.getHeroes();
+    this.headerService.searchEvent.subscribe( (searchValue: string) => alert('El buscador no funciona en esta pantalla'));
   }
 
   getHeroes() {
