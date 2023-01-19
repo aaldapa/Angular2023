@@ -1,15 +1,19 @@
 <div class="card margen">
   <div class="card-header">Hero Form</div>
   <div class="card-body">
-    <form>
+    <!-- class="was-validated" -->
+    <form #formHero="ngForm" (ngSubmit)="saveHero()">
+      <ng-template #mnsvalid class="valid-feedback"> ¡Se ve bien!</ng-template>
       <div class="row margen-inferior">
         <div class="col-2">
           <label for="id" class="form-label">Id</label>
           <input
             type="text"
-            class="form-control"
+            #id="ngModel"
             name="id"
             [(ngModel)]="hero.id"
+            placeholder="Identificador automático"
+            class="form-control"
             readonly
           />
         </div>
@@ -17,45 +21,102 @@
           <label for="name" class="form-label">Name</label>
           <input
             type="text"
-            class="form-control"
+            #name="ngModel"
             name="name"
             [(ngModel)]="hero.name"
+            placeholder="Nombre del heroe"
+            class="form-control"
+            required
+            minlength="4"
+            [ngClass]="{
+              'is-valid': !name.invalid,
+              'is-invalid': name.invalid
+            }"
           />
+          <div class="invalid-feedback"
+            *ngIf="name.invalid && (name.dirty || name.touched); else mnsvalid"
+          >
+            Por favor, inserta un nombre.
+            <div *ngIf="name.errors?.minlength">
+              Recuerda que debe contener al menos 4 caracteres.
+            </div>
+          </div>
         </div>
+
         <div class="col-2">
           <label for="age" class="form-label">Age</label>
           <input
             type="number"
-            class="form-control"
+            #age="ngModel"
             name="age"
             [(ngModel)]="hero.age"
+            class="form-control"
+            required
+            [ngClass]="{
+              'is-valid': !age.invalid,
+              'is-invalid': age.invalid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="age.invalid && (age.dirty || age.touched); else mnsvalid"
+          >
+            Por favor, inserta la edad.
+          </div>
         </div>
         <div class="col-4">
           <label for="power" class="form-label">Power</label>
           <input
             type="text"
-            class="form-control"
+            #power="ngModel"
             name="power"
             [(ngModel)]="hero.power"
+            class="form-control"
+            required
+            [ngClass]="{
+              'is-valid': !power.invalid,
+              'is-invalid': power.invalid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              power.invalid && (power.dirty || power.touched);
+              else mnsvalid
+            "
+          >
+            Por favor, inserta un poder.
+          </div>
         </div>
       </div>
 
       <div class="text-end">
-        <button type="button" class="col-2 btn btn-secondary  me-5" (click)="back()">
+        <button
+          type="button"
+          class="col-2 btn btn-secondary me-5"
+          (click)="back()"
+        >
           <i class="fa fa-undo" aria-hidden="true"></i>
           Back
         </button>
         <button
           type="button"
+          [disabled]="!formHero.valid"
           class="col-2 btn btn-primary"
           (click)="saveHero()"
         >
-        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
           Save
         </button>
-
+      </div>
+      <div class="col-12">
+        <button
+          type="submit"
+          [disabled]="!formHero.valid"
+          class="btn btn-primary"
+        >
+          Enviar formulario
+        </button>
       </div>
     </form>
   </div>
