@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeroServiceService } from '../hero-service.service';
 import { Hero } from '../model/hero';
 
@@ -12,30 +13,44 @@ import { Hero } from '../model/hero';
 export class HeroFormComponent implements OnInit {
   hero: Hero = { id: null!, name: '', age: null!, power: '' };
 
+  showHeroJson: boolean = false;
+
   constructor(
     private heroService: HeroServiceService,
-    private route: ActivatedRoute,
+    private route: Router,
+    private activateRoute: ActivatedRoute,
     private location: Location
-  ) {}
+  ) { }
 
-  
+
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    
+    const id = Number(this.activateRoute.snapshot.paramMap.get('id'));
+
     if (id) {
       this.heroService
-      .getHeroById(id)
-      .subscribe((hero: Hero) => (this.hero = hero));
+        .getHeroById(id)
+        .subscribe((hero: Hero) => (this.hero = hero));
     }
   }
 
-  saveHero() {
-    this.heroService.saveHero(this.hero);
-    this.location.back();
+  /**
+   * Envio del formulario
+   * @param heroForm formulario
+   */
+  save(heroForm: NgForm) {
+    //Si el formulario es valido
+    if (heroForm.valid){
+      this.heroService.saveHero(this.hero);
+      this.route.navigate(['/heroes']);
+      
+    } else {
+      alert('El formulario no supera las validaciones.')
+    }
+
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 }

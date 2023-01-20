@@ -1,8 +1,36 @@
+<!-- Inicio de la card -->
 <div class="card margen">
-  <div class="card-header">Hero Form</div>
+  <!-- Header -->
+  <div class="card-header">
+    <div class="row">
+      <div class="col-2">Hero Form</div>
+      <div class="col-8">
+        <section *ngIf="showHeroJson">Heroe: {{ hero | json }}</section>
+      </div>
+      <!-- Boton JSON -->
+      <div class="col-2 text-end">
+        <button
+          type="button"
+          class="btn btn-sm btn-info"
+          (click)="showHeroJson = !showHeroJson"
+        >
+          <ng-container
+            *ngIf="!showHeroJson; then showcodeicon; else hidecodeicon"
+          ></ng-container>
+          <ng-template #showcodeicon>
+            <i class="fa fa-code" aria-hidden="true"></i>
+          </ng-template>
+          <ng-template #hidecodeicon>
+            <i class="fa fa-ban" aria-hidden="true"></i>
+          </ng-template>
+          JSON
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="card-body">
     <!-- class="was-validated" -->
-    <form #formHero="ngForm" (ngSubmit)="saveHero()">
+    <form ngForm #formHero="ngForm" (ngSubmit)="save(formHero)">
       <ng-template #mnsvalid class="valid-feedback"> ¡Se ve bien!</ng-template>
       <div class="row margen-inferior">
         <div class="col-2">
@@ -33,7 +61,8 @@
               'is-invalid': name.invalid
             }"
           />
-          <div class="invalid-feedback"
+          <div
+            class="invalid-feedback"
             *ngIf="name.invalid && (name.dirty || name.touched); else mnsvalid"
           >
             Por favor, inserta un nombre.
@@ -100,22 +129,12 @@
           Back
         </button>
         <button
-          type="button"
+          type="submit"
           [disabled]="!formHero.valid"
           class="col-2 btn btn-primary"
-          (click)="saveHero()"
         >
           <i class="fa fa-floppy-o" aria-hidden="true"></i>
           Save
-        </button>
-      </div>
-      <div class="col-12">
-        <button
-          type="submit"
-          [disabled]="!formHero.valid"
-          class="btn btn-primary"
-        >
-          Enviar formulario
         </button>
       </div>
     </form>
