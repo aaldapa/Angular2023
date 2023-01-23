@@ -58,12 +58,12 @@
             minlength="4"
             [ngClass]="{
               'is-valid': !name.invalid,
-              'is-invalid': name.invalid
+              'is-invalid': name.invalid 
             }"
           />
           <div
             class="invalid-feedback"
-            *ngIf="name.invalid && (name.dirty || name.touched); else mnsvalid"
+            *ngIf="name.invalid; else mnsvalid"
           >
             Por favor, inserta un nombre.
             <div *ngIf="name.errors?.minlength">
@@ -79,6 +79,7 @@
             #age="ngModel"
             name="age"
             [(ngModel)]="hero.age"
+            placeholder="Edad"
             class="form-control"
             required
             [ngClass]="{
@@ -88,7 +89,7 @@
           />
           <div
             class="invalid-feedback"
-            *ngIf="age.invalid && (age.dirty || age.touched); else mnsvalid"
+            *ngIf="age.invalid ; else mnsvalid"
           >
             Por favor, inserta la edad.
           </div>
@@ -100,6 +101,7 @@
             #power="ngModel"
             name="power"
             [(ngModel)]="hero.power"
+            placeholder="Poder/es"
             class="form-control"
             required
             [ngClass]="{
@@ -110,7 +112,7 @@
           <div
             class="invalid-feedback"
             *ngIf="
-              power.invalid && (power.dirty || power.touched);
+              power.invalid;
               else mnsvalid
             "
           >
