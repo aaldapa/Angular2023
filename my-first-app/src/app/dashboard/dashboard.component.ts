@@ -1,6 +1,8 @@
 import { Hero } from './../model/hero';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HeroServiceService } from '../hero-service.service';
+import { HeaderComponent } from '../header/header.component';
+import { HeaderService } from '../header.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,22 +10,38 @@ import { HeroServiceService } from '../hero-service.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
+
   heroes!: Hero[];
-  constructor(private heroService: HeroServiceService) {}
+  constructor(private heroService: HeroServiceService, private header: HeaderService) {
+
+  }
 
   ngOnInit(): void {
-    // throw new Error('Method not implemented.');
+    //Obtener heroes para cargar la pantalla al entrar
     this.getHeroes();
+
+    //Subscribirse al evento de busqueda de Heroes
+    this.header.searchEvent.subscribe((searchParam: string) => {
+      console.log(`RECEPCION EVENTO ${searchParam}`);
+
+      if (searchParam) {
+        this.getHeroesByName(searchParam);
+      } else {
+        this.getHeroes();
+      }
+    });
+
+
   }
 
   getHeroes() {
-    this.heroService
-      .getAllHeroes()
-      .subscribe((heroes: Hero[]) => (this.heroes = heroes));
+    this.heroService.getAllHeroes()
+      .subscribe((heroes: Hero[]) => this.heroes = heroes);
+  }
 
-    // this.heroes = [
-    //   { id: 1, name: 'Batman', age: 24, power: 'riqueza' },
-    //   { id: 2, name: 'Wonderboy', age: 14, power: 'salto' },
-    // ];
+  getHeroesByName(name: string) {
+    console.log("Lanzamiento de busqueda");
+    this.heroService.findHeroesByName(name)
+    .subscribe((heroes: Hero[]) => this.heroes = heroes);
   }
 }

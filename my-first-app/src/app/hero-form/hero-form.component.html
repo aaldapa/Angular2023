@@ -1,15 +1,47 @@
+<!-- Inicio de la card -->
 <div class="card margen">
-  <div class="card-header">Hero Form</div>
+  <!-- Header -->
+  <div class="card-header">
+    <div class="row">
+      <div class="col-2">Hero Form</div>
+      <div class="col-8">
+        <section *ngIf="showHeroJson">Heroe: {{ hero | json }}</section>
+      </div>
+      <!-- Boton JSON -->
+      <div class="col-2 text-end">
+        <button
+          type="button"
+          class="btn btn-sm btn-info"
+          (click)="showHeroJson = !showHeroJson"
+        >
+          <ng-container
+            *ngIf="!showHeroJson; then showcodeicon; else hidecodeicon"
+          ></ng-container>
+          <ng-template #showcodeicon>
+            <i class="fa fa-code" aria-hidden="true"></i>
+          </ng-template>
+          <ng-template #hidecodeicon>
+            <i class="fa fa-ban" aria-hidden="true"></i>
+          </ng-template>
+          JSON
+        </button>
+      </div>
+    </div>
+  </div>
   <div class="card-body">
-    <form>
+    <!-- class="was-validated" -->
+    <form ngForm #formHero="ngForm" (ngSubmit)="save(formHero)">
+      <ng-template #mnsvalid class="valid-feedback"> ¡Se ve bien!</ng-template>
       <div class="row margen-inferior">
         <div class="col-2">
           <label for="id" class="form-label">Id</label>
           <input
             type="text"
-            class="form-control"
+            #id="ngModel"
             name="id"
             [(ngModel)]="hero.id"
+            placeholder="Identificador automático"
+            class="form-control"
             readonly
           />
         </div>
@@ -17,45 +49,95 @@
           <label for="name" class="form-label">Name</label>
           <input
             type="text"
-            class="form-control"
+            #name="ngModel"
             name="name"
             [(ngModel)]="hero.name"
+            placeholder="Nombre del heroe"
+            class="form-control"
+            required
+            minlength="4"
+            [ngClass]="{
+              'is-valid': !name.invalid,
+              'is-invalid': name.invalid 
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="name.invalid; else mnsvalid"
+          >
+            Por favor, inserta un nombre.
+            <div *ngIf="name.errors?.minlength">
+              Recuerda que debe contener al menos 4 caracteres.
+            </div>
+          </div>
         </div>
+
         <div class="col-2">
           <label for="age" class="form-label">Age</label>
           <input
             type="number"
-            class="form-control"
+            #age="ngModel"
             name="age"
             [(ngModel)]="hero.age"
+            placeholder="Edad"
+            class="form-control"
+            required
+            [ngClass]="{
+              'is-valid': !age.invalid,
+              'is-invalid': age.invalid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="age.invalid ; else mnsvalid"
+          >
+            Por favor, inserta la edad.
+          </div>
         </div>
         <div class="col-4">
           <label for="power" class="form-label">Power</label>
           <input
             type="text"
-            class="form-control"
+            #power="ngModel"
             name="power"
             [(ngModel)]="hero.power"
+            placeholder="Poder/es"
+            class="form-control"
+            required
+            [ngClass]="{
+              'is-valid': !power.invalid,
+              'is-invalid': power.invalid
+            }"
           />
+          <div
+            class="invalid-feedback"
+            *ngIf="
+              power.invalid;
+              else mnsvalid
+            "
+          >
+            Por favor, inserta un poder.
+          </div>
         </div>
       </div>
 
       <div class="text-end">
-        <button type="button" class="col-2 btn btn-secondary  boton-margen" (click)="back()">
+        <button
+          type="button"
+          class="col-2 btn btn-secondary me-5"
+          (click)="back()"
+        >
           <i class="fa fa-undo" aria-hidden="true"></i>
           Back
         </button>
         <button
-          type="button"
+          type="submit"
+          [disabled]="!formHero.valid"
           class="col-2 btn btn-primary"
-          (click)="saveHero()"
         >
-        <i class="fa fa-floppy-o" aria-hidden="true"></i>
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>
           Save
         </button>
-
       </div>
     </form>
   </div>

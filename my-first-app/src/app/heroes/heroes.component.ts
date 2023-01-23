@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HeaderService } from '../header.service';
 import { HeroServiceService } from '../hero-service.service';
 import { Hero } from './../model/hero';
 
@@ -9,7 +11,8 @@ import { Hero } from './../model/hero';
 })
 export class HeroesComponent implements OnInit {
   heroes!: Hero[];
-  constructor(private heroService: HeroServiceService) {}
+
+  constructor(private heroService: HeroServiceService) { }
 
   ngOnInit(): void {
     // throw new Error('Method not implemented.');
@@ -21,14 +24,15 @@ export class HeroesComponent implements OnInit {
     //   this.heroes = heroes
     // );
 
-    this.heroService.getAllHeroes().subscribe( heroes =>
+    this.heroService.getAllHeroes().subscribe(heroes =>
       this.heroes = heroes
     );
   }
 
-  deleteHero(id:number){
+  deleteHero(id: number) {
+    //borrar Heroe
     this.heroService.deleteHero(id);
-
+    //Recargar lista de Heroes
     this.getHeroes();
   }
 }

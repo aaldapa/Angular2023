@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Hero } from './model/hero';
 import { HEROES } from './mock-heroes';
@@ -7,9 +7,24 @@ import { HEROES } from './mock-heroes';
   providedIn: 'root',
 })
 export class HeroServiceService {
+
   public idKey: string = 'hero-id_';
 
-  constructor() {}
+  constructor() { }
+
+  /**
+   * Devuelve la lista de heroes cuyo nombre contiene el parametro
+   * @param name 
+   * @returns 
+   */
+  findHeroesByName(name: string): Observable<Hero[]> {
+    console.log(`findHeroesByName :${name}`);
+
+    //Busqueda de heroes ignorando mayus/minus
+    let heroes: Hero[] = this.getAllHeroesArr().filter((hero: Hero) => hero.name.toUpperCase().includes(name.toLocaleUpperCase()));
+
+    return of(heroes);
+  }
 
   getHeroes(): Observable<Hero[]> {
     return of(HEROES);
@@ -20,15 +35,7 @@ export class HeroServiceService {
    * @returns
    */
   getAllHeroes(): Observable<Hero[]> {
-    let heroes: Hero[] = this.getAllHeroKeys().map((key: string) =>
-      JSON.parse(localStorage.getItem(key)!)
-    );
-
-    heroes.sort((heroA, heroB) => {
-      return heroA.id - heroB.id;
-    });
-
-    return of(heroes);
+    return of(this.getAllHeroesArr());
   }
 
   /**
@@ -67,10 +74,31 @@ export class HeroServiceService {
   }
 
   /**
+   * Obtiene la lista de heroes ordenada por id
+   * @returns
+   */
+  private getAllHeroesArr(): Hero[] {
+
+    //Obtenemos los ids de base de datos
+    let heroes: Hero[] = this.getAllHeroKeys().map((key: string) =>
+      JSON.parse(localStorage.getItem(key)!)
+    );
+
+    //ordenamos por id
+    if (heroes.length) {
+      heroes.sort((heroA, heroB) => {
+        return heroA.id - heroB.id;
+      });
+    }
+
+    return heroes;
+  }
+
+  /**
    * Actua como secuenciador devolviendo el id max+1
    * @returns
    */
-  getNextIdVal(): number {
+  private getNextIdVal(): number {
     //Obtener todos las claves del localStorage y filtrar las que contienen la palabra hero-id_
     let keys: string[] = Object.keys(localStorage).filter((key) =>
       key.includes(this.idKey)
@@ -98,7 +126,7 @@ export class HeroServiceService {
    * Obtiene todas las claves de los heroes del localStorage
    * @returns
    */
-  getAllHeroKeys(): string[] {
+  private getAllHeroKeys(): string[] {
     //Obtener todos las claves del localStorage y filtrar las que contienen la palabra hero-id_
     let keys: string[] = Object.keys(localStorage).filter((key) =>
       key.includes(this.idKey)

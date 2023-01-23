@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'my-first-app';
+
+  searchParam!:string;
+
+  // relauchSearch(searchParam:string){
+  //   console.log(`CAPTURADO EVENTO --> párametro de búsqueda : ${searchParam}`);
+  //   this.searchParam = searchParam;
+  // }
+
 }

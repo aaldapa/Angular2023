@@ -1,13 +1,27 @@
 <div class="card h-100">
-  <img src="../../assets/imgs/logo_angular.png" class="card-img-top" alt="..."/>
+  <img
+    src="../../assets/imgs/logo_angular.png"
+    class="card-img-top"
+    alt="..."
+  />
   <div class="card-body">
     <h5 class="card-title">{{hero.name | uppercase}}</h5>
-    <p class="card-text">
-      This is a wider card with supporting text below as a natural lead-in to
-      additional content. This content is a little bit longer.
+    <p class="card-text">Su poder es: {{hero.power}}</p>
+    <div class="text-center">
+      <a class="btn btn-primary" [routerLink]="['/hero', hero.id]">Details</a>
+    </div>
+  </div>
+
+  <!-- <div class="card-body">
+    <h5 class="card-title">{{ hero.name | uppercase }}</h5>
+     <p class="card-text">
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam sapiente
+      eius cum quisquam molestiae, harum voluptatem, ipsa corrupti voluptate
+      autem corporis, quibusdam magni ratione assumenda quis vel! Mollitia,
+      magnam laudantium!
     </p>
-  </div>
-  <div class="card-footer">
+  </div> -->
+  <!-- <div class="card-footer">
     <small class="text-muted">Last updated 3 mins ago</small>
-  </div>
+  </div> -->
 </div>
