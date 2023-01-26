@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col">
+    <h1>*ngIf</h1>
+    <hr />
+    <div class="d-grid mb-4">
+      <button
+        class="btn btn-outline-primary"
+        (click)="mostrarOcultar = !mostrarOcultar"
+      >
+        Mostrar/Ocultar
+      </button>
+    </div>
+    <div
+      *ngIf="mostrarOcultar"
+      class="card text-bg-primary"
+      style="width: 100%"
+    >
+      <div class="card-body">
+        <h5 class="card-title">{{ titulo }}</h5>
+        <p class="card-text">
+          {{ frase }}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <h1>*ngFor</h1>
+    <hr />
+    <ul class="list-group">
+      <li *ngFor="let item of lstItems; let i = index" class="list-group-item">
+        {{ i + 1 }} - {{ item }}
+      </li>
+    </ul>
+  </div>
+</div>
