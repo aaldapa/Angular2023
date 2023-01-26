@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <img src="../assets/img/A-64.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top ">
+    <a class="navbar-brand" href="#">Navbar</a>
+    
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" aria-current="page" [routerLink]="['home']" routerLinkActive="router-link-active" >Home</a>
+        <a class="nav-link" [routerLink]="['heroes']" routerLinkActive="router-link-active">Heroes</a>
+        <a class="nav-link" [routerLink]="['about']"  routerLinkActive="router-link-active">About</a>
+        <a class="nav-link disabled">Disabled</a>
+      </div>
+    </div>
+    
+    <form class="d-flex" role="search" (keydown.enter)="$event.preventDefault()">
+      <input #searchField="ngModel" name="searchField" [(ngModel)]="searchFieldValue" class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keydown.enter)="searchHero(searchField.value)">
+      <button class="btn btn-outline-success" type="button" (click)="searchHero(searchField.value)">Search</button>
+      <!-- <input #searchField="ngModel" name="searchField" [(ngModel)]="searchFieldValue" class="form-control me-2" type="text" placeholder="Search" aria-label="Search"> -->
+    </form>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+</nav>

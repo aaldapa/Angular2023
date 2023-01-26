@@ -1,0 +1,21 @@
+<div class="card h-100 animated fadeIn fast">
+  <img src="{{ hero.img }}" class="card-img-top" alt="..." />
+  <div class="card-body">
+    <h5 class="card-title">{{ hero.nombre }}</h5>
+    <p class="card-text">
+      {{ hero.bio | substring100 }}
+    </p>
+    <div class="d-grid">
+      <button
+        class="btn btn-sm btn-block btn-outline-primary"
+        [routerLink]="['/hero', hero.nombre]"
+        routerLinkActive="router-link-active"
+      >
+        Ver mas...
+      </button>
+    </div>
+  </div>
+  <div class="card-footer">
+    <small class="text-muted">{{ hero.aparicion }}</small>
+  </div>
+</div>
