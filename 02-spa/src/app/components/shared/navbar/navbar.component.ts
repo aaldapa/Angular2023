@@ -1,6 +1,7 @@
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { HeroService } from './../../../servicios/hero.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -9,16 +10,40 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  searchFieldValue:string = ''
+  //referencia al elemento de busqueda en el dom
+  searchFieldValue: string = ''
 
   constructor(private _heroService: HeroService,
     private router: Router) { }
 
   ngOnInit(): void {
-    this._heroService.reseteoEmitter.subscribe(() => {console.log("Reseteo")
-    this.searchFieldValue ='';
-  });
+    
+    /**
+     * Accedo a los evento de navegacion y quedandome solamente (filter) con los que son del tipo NavegationEnd 
+     * para suscribirme a ellos y eliminar la caja de texto de la busqueda cada vez que se pagine fuera 
+     * de la pagina buscador
+     */
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        //Obtengo la url del evento de paginacion
+        if (event instanceof NavigationEnd) {
+          console.log("Navegación a la url: " + event.url);
+          let urlActualAComparar = event.url.substring(0, 9).toUpperCase();
+          let urlBuscador = "/buscador".toUpperCase();
+
+          //Si la url es diferente a la del buscador y el campo de busqueda no esta vacio, lo reseteo
+          if (!urlActualAComparar.includes(urlBuscador)
+          && this.searchFieldValue!=='') {
+            console.log('Resetear input');
+            this.searchFieldValue = '';
+          }
+
+        }
+      });
   }
+
 
   /**
    * Al realizarse la busqueda en el componente dispara la emision del evento

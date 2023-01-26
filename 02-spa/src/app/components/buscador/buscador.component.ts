@@ -18,9 +18,12 @@ export class BuscadorComponent implements OnInit {
 
   ngOnInit(): void {
 
+    /**
+     * Cuando se entra en la pagina del buscador (invocada al buscar), se capturan
+     * el parametro de busqueda de la url.
+     */
     this.activatedRoute.queryParams
       .subscribe(params => {
-        console.log(params)
         this.filterValue = params.nombre;
         this.getHeroesByName(this.filterValue);
       });

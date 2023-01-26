@@ -11,13 +11,10 @@ export class HeroesComponent implements OnInit {
 
   heroes!: Hero[];
 
-  filterValue: string = '';
-
   constructor(private _heroService: HeroService) { }
 
   ngOnInit(): void {
     this.getHeroes();
-    this._heroService.reseteoEmitter.emit();
   }
 
   getHeroes(): void {

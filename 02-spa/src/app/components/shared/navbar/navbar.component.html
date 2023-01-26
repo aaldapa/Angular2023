@@ -12,12 +12,11 @@
       </div>
     </div>
     
-    <form class="d-flex" role="search" (keydown.enter)="$event.preventDefault()">
-      <input #searchField="ngModel" name="searchField" [(ngModel)]="searchFieldValue" class="form-control me-2" type="text" placeholder="Search" aria-label="Search" (keydown.enter)="searchHero(searchField.value)">
-      <button class="btn btn-outline-success" type="button" (click)="searchHero(searchField.value)">Search</button>
-      <!-- <input #searchField="ngModel" name="searchField" [(ngModel)]="searchFieldValue" class="form-control me-2" type="text" placeholder="Search" aria-label="Search"> -->
-    </form>
-    
+    <div class="d-flex">
+      <input #searchField="ngModel" name="searchField" [(ngModel)]="searchFieldValue" class="form-control me-2" type="text" placeholder="Buscar" aria-label="Search" (keydown.enter)="searchHero(searchField.value)">
+      <button class="btn btn-outline-success" type="button" (click)="searchHero(searchField.value)">Buscar</button>
+    </div>
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

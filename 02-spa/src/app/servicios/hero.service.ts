@@ -9,8 +9,6 @@ import { Observable, of } from 'rxjs';
 })
 export class HeroService {
 
-  reseteoEmitter = new EventEmitter<void>();
-
   constructor() { }
 
   getAllHeroesFromMock(): Observable<Hero[]> {
