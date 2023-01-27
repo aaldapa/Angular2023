@@ -1,8 +1,9 @@
-import { HeroService } from './../../servicios/hero.service';
+import { HeroService } from '../../services/hero.service';
 import { Hero } from './../../model/hero';
-import { Component, OnInit, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { formatDate } from '@angular/common';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-hero',
@@ -14,16 +15,16 @@ export class HeroComponent implements OnInit {
   id!: string;
   hero!: Hero;
 
+ 
   constructor(private activatedRoute: ActivatedRoute,
               private _heroService: HeroService,
-              @Inject(LOCALE_ID) public locale: string) {
-
-      
+              private location: Location) {
 
     //2 formas de obtener los parametros de la ruta
     //this.activatedRoute.params.subscribe(params => this.id = params['id']);
     this.id = this.activatedRoute.snapshot.paramMap.get('id')!;
     console.log("VER HEROE: " + this.id);
+
   }
 
   ngOnInit(): void {
@@ -37,9 +38,14 @@ export class HeroComponent implements OnInit {
   getHero(nombre: string): void {
 
     this._heroService.getHeroById(nombre)
-      .subscribe((hero: Hero) => this.hero = hero);
+      .subscribe((hero: Hero) => {
+        this.hero = hero;
+      });
 
   }
 
+  back():void{
+    this.location.back();
+  }
 
 }

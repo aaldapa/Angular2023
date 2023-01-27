@@ -8,8 +8,7 @@
     <div class="d-grid">
       <button
         class="btn btn-sm btn-block btn-outline-primary"
-        [routerLink]="['/hero', hero.nombre]"
-        routerLinkActive="router-link-active"
+        (click)="verHeroe()"
       >
         Ver mas...
       </button>

@@ -1,0 +1,11 @@
+<div class="row row-cols-1 row-cols-md-4 g-4" *ngIf="heroes.length > 0; else noheroes">
+  <div class="col" *ngFor="let hero of heroes">
+    <app-hero-card [hero]="hero" (heroSeleccionado)="printEventoHijo($event)"></app-hero-card>
+  </div>
+</div>
+
+<ng-template #noheroes>
+  <div class="row">
+    <p class="alert alert-warning animated fadeIn fast" >No existen Heroes</p>
+  </div>
+</ng-template>

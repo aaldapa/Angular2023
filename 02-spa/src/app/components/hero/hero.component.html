@@ -6,7 +6,7 @@
     <img src="{{ hero.img }}" alt="hero.img" class="img-fluid" />
     <br /><br />
     <div class="d-grid">
-      <button class="btn btn-outline-primary" [routerLink]="['/heroes']">
+      <button class="btn btn-outline-primary" (click)="back()">
         Regresar...
       </button>
     </div>

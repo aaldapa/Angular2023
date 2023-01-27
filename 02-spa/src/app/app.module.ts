@@ -13,6 +13,7 @@ import { HeroComponent } from './components/hero/hero.component';
 import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { BuscadorComponent } from './components/buscador/buscador.component';
 import { FormsModule } from '@angular/forms';
+import { HeroListComponent } from './components/hero-list/hero-list.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { FormsModule } from '@angular/forms';
     Substring100Pipe,
     HeroComponent,
     HeroCardComponent,
-    BuscadorComponent
+    BuscadorComponent,
+    HeroListComponent
   ],
   imports: [
     BrowserModule,
