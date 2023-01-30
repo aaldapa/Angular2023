@@ -6,6 +6,7 @@ import { HeroComponent } from './components/hero/hero.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { VideoComponent } from './components/video/video.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'heroes', component: HeroesComponent },
   { path: 'buscador', component: BuscadorComponent },
   { path: 'hero/:id', component: HeroComponent },
+  { path: 'videos', component: VideoComponent },
   { path: '**', pathMatch: 'full', redirectTo: 'home' }
 ];
 @NgModule({

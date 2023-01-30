@@ -14,7 +14,8 @@
       </button>
     </div>
   </div>
-  <div class="card-footer">
-    <small class="text-muted">{{ hero.aparicion }}</small>
+  <div class="card-footer text-center">
+    <!-- <small class="text-muted ">{{ hero.aparicion | date:"dd/MM/yyyy"}}</small> -->
+    <small class="text-muted ">{{ (hero.aparicion | date:'fullDate':'es')! | capitalize:true:['de'] }}</small>
   </div>
 </div>

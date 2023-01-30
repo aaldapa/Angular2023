@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-10">
+        <h1>Mi heroe <small>(Antonio Orozco)</small></h1>
+    </div>
+    <div class="col-2 text-end">
+        <button class="btn btn-outline-primary" (click)="displayUrl = !displayUrl">
+            <ng-container *ngIf="displayUrl;then ocultar; else ver"></ng-container>
+
+            <ng-template #ver>Ver url</ng-template>
+            <ng-template #ocultar>Ocultar url</ng-template>
+        </button>
+    </div>
+</div>
+<hr>
+<iframe
+width="560"
+height="315"
+[src]="urlVideo | domseguro"
+title="YouTube video player"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen
+></iframe>
+
+<h4>{{urlVideo | asteriscos: !displayUrl }}</h4>
